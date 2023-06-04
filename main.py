@@ -14,22 +14,27 @@ templates = Jinja2Templates(directory="templates")
 # Home Page
 
 
-@app.get("/",response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
     time_duration = 60
-    n = db.DB.collection.count_documents({})
-    data = db.DB.collection.find()
-    data = list(data)
-    l = []
-    for i in data:
-        if i['_id'] != "client-1":
-            l.append({
-                "_id": i['_id'],
-                "username": i["username"],
-                "time": i["time"].strftime("%Y-%m-%d %I:%M:%S %p"),
-                "status": "online" if (datetime.now() - i["time"]).total_seconds() <= time_duration else "offline"
-            })
-    return templates.TemplateResponse("index.html", {"request": request, "signal": True, "client": l, "no_of_client": n-1, "time_duration": time_duration})
+    try:
+        n = db.DB.collection.count_documents({})
+        data = db.DB.collection.find()
+        data = list(data)
+        l = []
+        for i in data:
+            if i['_id'] != "client-1":
+                l.append({
+                    "_id": i['_id'],
+                    "username": i["username"],
+                    "time": i["time"].strftime("%Y-%m-%d %I:%M:%S %p"),
+                    "status": "online" if (datetime.now() - i["time"]).total_seconds() <= time_duration else "offline"
+                })
+        return templates.TemplateResponse("index.html", {"request": request, "signal": True, "client": l, "no_of_client": n-1, "time_duration": time_duration})
+    except:
+        # return {"signal": False, "message": "AWS server is not responding please wait"}
+        pass
+        # return templates.TemplateResponse("index.html", {"request": request, "signal": False, "msg": "AWS server is not responding please wait "  "time_duration": time_duration})
     # return {"signal": True, "client": l, "no_of_client": n-1, "time_duration": time_duration}
 
 
