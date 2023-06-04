@@ -1,26 +1,24 @@
-function copyText(htmlElement) {
+$(document).ready(function () {
+    $('.copy-btn').click(function () {
+        // console.log("click...")
 
-    if (!htmlElement) {
-        return;
-    }
+        // console.log($(this).siblings('.copy-txt').text());
 
-    let element = htmlElement.innerText
-
-    let inputElement = document.createElement('input')
-
-    inputElement.setAttribute('value', element)
-
-    document.body.appendChild(inputElement)
-
-    inputElement.select();
-
-    document.execCommand('copy')
-
-    inputElement.parentElement.removeChild(inputElement)
+        let mac = $(this).siblings('.copy-txt').text();
 
 
-}
+        let element = mac
 
-document.querySelector('#copy-text-btn').onclick = function () {
-    copyText(document.querySelector('#text'))
-}
+        let inputElement = document.createElement('input')
+
+        inputElement.setAttribute('value', element)
+
+        document.body.appendChild(inputElement)
+
+        inputElement.select();
+
+        document.execCommand('copy')
+
+        inputElement.parentElement.removeChild(inputElement)
+    })
+});
