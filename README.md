@@ -5,3 +5,9 @@ Besic api based dashboard. My final year project how many user can use it.
 ```
 uvicorn main:app --reload
 ```
+
+## Deployment fastAPI runserver command is
+
+```
+uvicorn main:app --host 0.0.0.0 --port 80
+```
