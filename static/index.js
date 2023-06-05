@@ -6,6 +6,8 @@ $(document).ready(function () {
 
         let mac = $(this).siblings('.copy-txt').text();
 
+        // let msg = document.getElementsByClassName('msg-alert');
+        // msg.innerHtml
 
         let element = mac
 
